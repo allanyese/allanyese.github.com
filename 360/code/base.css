@@ -1,0 +1,17 @@
+@charset "utf-8";
+/* CSS Document */
+
+*{padding:0;margin:0;}
+h1,h2,h3,h4,h5,h6{font-size:12px;font-weight:normal;}
+b,stong{font-weight:normal;}
+
+i,em{font-style:normal;}
+li{list-style:none;}
+p,body,ul,dl,ol,dd,dt{padding:0;margin:0;}
+.clearfix:after{display:block;content:'';clear:both;}
+	.clearfix{zoom:1}
+	a{text-decoration:none;color:#000;}
+	img{display:block;}
+	.fl{float:left;}
+	.fr{float:right;}
+	.w{margin:0 auto;}

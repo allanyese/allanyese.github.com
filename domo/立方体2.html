@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #box{
+            width:200px; height:200px; margin:150px auto;
+            transform-style:preserve-3d; position:relative;
+            transform:perspective(800px) rotateX(0deg) rotateY(0deg);
+            transition:1s all ease;
+            animation:3s move linear infinite;
+        }
+        #box div{
+            width:100%; height:100%;
+            border-radius: 50%;
+            font-size:50px; text-align: center;
+            line-height:200px; color:#fff; position:absolute;
+            top:0; left:0;
+        }
+        #box .front{
+             background:red;
+             transform:translateZ(100px);
+         }
+        #box .roll_1{
+            width:100%;
+            height:100%;
+            border-radius:50%;
+            border:2px solid #22ff54;
+            background:rgba(0,0,0,0);
+            transform:scale(2);
+        }
+        #box .back{
+            background: #5153ff;
+            transform:translateZ(-100px) scale(-1,1);
+        }
+        #box .up{
+            background: #78ff4c;
+            transform:translateY(100px) rotateX(90deg);
+        }
+        #box .roll_2{
+            width:100%;
+            height:100%;
+            border-radius:50%;
+            border:2px solid #ff5522;
+            background:rgba(0,0,0,0);
+            transform: rotateX(90deg) scale(2);
+        }
+        #box .down{
+            background: #fff149;
+            transform:translateY(-100px) rotateX(-90deg);
+        }
+        #box .left{
+            background: #39ffdd;
+            transform:translateX(-100px) rotateY(-90deg);
+        }
+        #box .roll_3{
+            width:100%;
+            height:100%;
+            border-radius:50%;
+            border:2px solid #ff486a;
+            background:rgba(0,0,0,0);
+            transform: rotateY(90deg) scale(2);
+        }
+        #box .right{
+            background: #ff832e;
+            transform:translateX(100px) rotateY(90deg);
+        }
+        @keyframes move{
+
+            0%{
+                transform:perspective(800px) rotateX(0deg)  rotateY(0deg);
+            }
+
+            25%{
+                transform:perspective(800px) rotateX(90deg)  rotateY(90deg);
+            }
+
+            50%{
+                transform:perspective(800px) rotateX(180deg)  rotateY(180deg);
+            }
+
+            75%{
+                transform:perspective(800px) rotateX(270deg)  rotateY(270deg);
+            }
+
+            100%{
+                transform:perspective(800px) rotateX(360deg)  rotateY(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <ul id="box">
+        <li class="roll_1"></li>
+        <li class="roll_2"></li>
+        <li class="roll_3"></li>
+
+        <li class="front">正面</li>
+        <li class="back">反面</li>
+        <li class="up">上面</li>
+        <li class="down">下面</li>
+        <li class="left">左面</li>
+        <li class="right">右面</li>
+    </ul>
+</body>
+</html>
