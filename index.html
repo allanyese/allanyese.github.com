@@ -1,508 +1,300 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title></title>
-    <link rel="stylesheet" href="css/base.css"/>
-    <style>
-        body{
-            height:3000px;
-        }
-        .header{
-            width:100%;
-            height:680px;
-            background:aqua;
-        }
-        /*导航栏*/
-        .banner{
-            width:100%;
-            height:40px;
-            background:rgba(0,0,0,1);
-            padding:10px 0;
-            position:relative;
-            top:0;left:0;
-            z-index:999;
-        }
-        .relief{
-            width:100%;
-            height:60px;
-            display:none;
-            z-index:999;
-        }
-        .try {
-            width:20%;
-            height:40px;
-            margin-left:20px;
-        }
-        .try a{
-            display:block;
-            line-height:40px;
-            text-align: center;
-            font-size:20px;
-            color:#fff;
-        }
-        .b_er{
-            width:600px;
-            height:40px;
-        }
-        .b_er a{
-            width:20%;
-            line-height: 40px;
-            text-align: center;
-            font-size:20px;
-            color:#f9f9f9;
-            float:left;
-            box-sizing: border-box;
-            border-right:2px solid #ff0;
-        }
-        .b_er .last{
-            border-right:none;
-        }
-
-        /*html展示*/
-        .ht{
-            width:100%;
-            height:680px;
-            background:url("image/sport7.jpg") no-repeat;
-            background-size:100%;
-            position:relative;
-        }
-        .ht .shows{
-            width:300px;
-            height:300px;
-            position:absolute;
-            top:50%;
-            left:50%;
-            margin-left:-150px;
-            margin-top:-150px;
-            background:#ccc;
-        }
-        .shows li{
-            width:300px;
-            height:300px;
-            background:#ff0;
-            border:1px solid #000;
-            position:absolute;
-            top:0;
-            left:0;
-            text-align: center;
-            line-height: 300px;
-            font-size:100px;
-            color:#000;
-            -webkit-transform: perspective(800px) translateX(0) rotate(0deg);
-            transition:0.4s all ease;
-        }
-        .shows  .cur{
-            z-index:3;
-        }
-        .shows .l_1{
-            opacity:0.7;
-            -webkit-transform:perspective(800px) translateX(-300px) rotateY(60deg);
-        }
-        .shows .l_2{
-            z-index:2;
-            opacity:0.7;
-            -webkit-transform:perspective(800px) translateX(-200px)  rotateY(60deg);
-        }
-        .shows .r_2{
-            z-index:2;
-            opacity:0.7;
-            -webkit-transform:perspective(800px) translateX(200px) rotateY(-60deg);
-        }
-        .shows .r_1{
-            opacity:0.7;
-            -webkit-transform:perspective(800px) translateX(300px) rotateY(-60deg);
-        }
-        .ht .shows_l{
-            width:60px;
-            height:60px;
-            background:rgba(0,0,0,.5);
-            position:absolute;
-            top:50%;
-            margin-top:-30px;
-            left:100px;
-
-            color:#eee;
-            font-size:30px;
-            text-align: center;
-            line-height: 60px;
-        }
-        .ht .shows_l:hover{
-            background:rgba(0,0,0,1);
-            color:#fff;
-        }
-        .ht .shows_r{
-            width:60px;
-            height:60px;
-            background:rgba(0,0,0,.5);
-            position:absolute;
-            top:50%;
-            right:100px;
-            margin-top:-30px;
-
-            color:#eee;
-            font-size:30px;
-            text-align: center;
-            line-height: 60px;
-        }
-        .ht .shows_r:hover{
-            background:rgba(0,0,0,1);
-            color:#fff;
-        }
-        .shows li a{
-            width:100%;
-            height:100%;
-            display:block;
-        }
-        .shows li img{
-            width:300px;
-            height:300px;
-            display:block;
-        }
-        /*返回顶部*/
-        #back {
-            width: 40px;
-            height: 40px;
-            color:#000;
-            line-height: 20px;
-            text-align: center;
-            border-radius: 5px;
-            opacity: 0.5;
-            background: -webkit-linear-gradient(aqua,yellow);
-            position: fixed;
-            right: 0;
-            bottom: 50px;
-            display: none;
-        }
-        #back:hover{
-            transition:1s all ease;
-            opacity:1;
-            background:-webkit-linear-gradient(yellow,aqua)
-        }
-        /*cude*/
-        .Cube_all{
-            width:100%;
-            height:680px;
-            background:url('image/bugs.jpg') no-repeat;
-            background-size:cover;
-            position:relative;
-        }
-        .Cube{
-            width:200px; height:200px;
-            position:absolute;
-            top:50%;
-            left:50%;
-            margin-left:-100px;
-            margin-top:-100px;
-            transform-style:preserve-3d;
-            transform:perspective(800px) rotateX(0deg) rotateY(0deg);
-            transition:1s all ease;
-            animation:3s move linear infinite;
-        }
-        .Cube li{
-            width:100%; height:100%;
-            border-radius: 50%;
-            font-size:50px; text-align: center;
-            line-height:200px; color:#fff;
-            position:absolute;
-            top:0; left:0;
-
-        }
-        .Cube .roll{
-            width:100%;
-            height:100%;
-            border-radius:50%;
-            border:2px solid #22ff54;
-            background:rgba(0,0,0,0);
-            transform:scale(2);
-        }
-        .Cube .front{
-            background:red;
-            transform:translateZ(100px);
-        }
-        .Cube .back{
-            background: #5153ff;
-            transform:translateZ(-100px) scale(-1,1);
-        }
-        .Cube .up{
-            background: #78ff4c;
-            transform:translateY(100px) rotateX(90deg);
-        }
-
-        .Cube .down{
-            background: #fff149;
-            transform:translateY(-100px) rotateX(-90deg);
-        }
-        .Cube .left{
-            background: #39ffdd;
-            transform:translateX(-100px) rotateY(-90deg);
-        }
-        .Cube .right{
-            background: #ff832e;
-            transform:translateX(100px) rotateY(90deg);
-        }
-        @keyframes move{
-
-            0%{
-                transform:perspective(800px) rotateX(360deg)  rotateY(360deg);
-            }
-
-            25%{
-                transform:perspective(800px)   rotateX(90deg);
-            }
-
-            50%{
-                transform:perspective(800px)   rotateY(180deg);
-            }
-
-            75%{
-                transform:perspective(800px) rotateX(270deg);
-            }
-
-            100%{
-                transform:perspective(800px)   rotateY(360deg);
-            }
-        }
-        #go{
-            width:100px;
-            height:100px;
-            background:#ff0;
-            position:absolute;
-            top:0;left:0;
-        }
-    </style>
-    <script src="js/move.js"></script>
-    <script>
-        function getPos(obj){
-            var l=0;
-            var t=0;
-            while(obj){
-                l+=obj.offsetLeft;
-                t+=obj.offsetTop;
-                obj=obj.offsetParent;
-            }
-            return {left:l,top:t};
-        }
-        window.onload=function(){
-            ;(function(){
-                var oBack = document.getElementById('back');
-                var timer=null;
-                var lock = false;
-                window.addEventListener('scroll',function(){
-                    var scroll=document.documentElement.scrollTop||document.body.scrollTop;
-
-                    lock=true;
-                    if(scroll>0){
-                        oBack.style.display='block';
-                    }else{
-                        oBack.style.display='none';
-                    }
-                },false);
-               /* window.onscroll=function(){
-                    alert(1);
-                    var scroll=document.documentElement.scrollTop||document.body.scrollTop;
-
-                    lock=true;
-                    if(scroll>0){
-                        oBack.style.display='block';
-                    }else{
-                        oBack.style.display='none';
-                    }
-                };*/
-                oBack.onclick=function(){
-                    clearInterval(timer);
-                    var Scroll = document.documentElement.scrollTop || document.body.scrollTop;
-                    var start = Scroll;
-                    var dis = 0-start;
-                    var count=Math.floor(2000/30);
-                    var n=0;
-
-                    timer=setInterval(function(){
-                        n++;
-                        //让谁动
-                        lock=false;
-                        document.documentElement.scrollTop=document.body.scrollTop=start+dis*n/count;
-                        if(n==count){
-                            clearInterval(timer);
-                        }
-                    },30)
-                };
-            })();
-//            吸顶条
-            ;(function(){
-                var oBox=document.getElementById('box');
-                var oBan=oBox.children[0];
-                var oRel=oBox.children[1];
-                var disH=getPos(oBan).top;
-                window.onscroll=function(){
-                    var oS=document.documentElement.scrollTop||document.body.scrollTop;
-                    if(oS>disH){
-                        oBan.style.position='fixed';
-                        oBan.style.opacity='0.6';
-                        oRel.style.display='block';
-                    }else{
-                        oBan.style.position='relative';
-                        oBan.style.opacity='1';
-                        oRel.style.display='none';
-                    }
-                };
-            })();
-//            html展示
-            ;(function(){
-                var oShows = document.getElementById('shows');
-                var oA_l = document.getElementById('shows_l');
-                var oA_r = document.getElementById('shows_r');
-                var aLi =oShows.children;
-                var aClass = [];
-                for(var i = 0;i<aLi.length;i++){
-                    aClass.push(aLi[i].className);
-                }
-                oA_r.onclick = function () {
-                    aClass.push(aClass.shift());
-                    for(var i = 4;i<aLi.length;i--){
-                        aLi[i].className = aClass[i];
-                    }
-                };
-                oA_l.onclick = function () {
-                    aClass.unshift(aClass.pop());
-                    for(var i = 0;i<aLi.length;i++){
-                        aLi[i].className = aClass[i];
-                    }
-                };
-            })();
-            //碰撞
-            (function(){
-                var oBox=document.getElementById('go');
-                var oCude=document.getElementById('cude');
-                var iSpeedX=0;
-                var iSpeedY=0;
-                var lastX=0;
-                var lastY=0;
-                oBox.onmousedown=function(ev){
-                    var oEvent=ev || event;
-                    var disX=oEvent.clientX-oBox.offsetLeft;
-                    var disY=oEvent.clientY-oBox.offsetTop;
-                    document.onmousemove=function(ev){
-                        var oEvent=ev || event;
-                        var l=oEvent.clientX-disX;
-                        var t=oEvent.clientY-disY;
-                        oBox.style.left=l+'px';
-                        oBox.style.top=t+'px';
-                        iSpeedX=oEvent.clientX-lastX;
-                        iSpeedY=oEvent.clientY-lastY;
-                        lastX=oEvent.clientX;
-                        lastY=oEvent.clientY;
-                        if(iSpeedX>-10){
-                            oCude.style.opacity='1';
-                            oCude.style.transition='2s all ease';
-                        }else{
-                            oCude.style.opacity='0';
-                        }
-                    };
-                    document.onmouseup=function(){
-                        document.onmouseup=null;
-                        document.onmousemove=null;
-                        oBox.releaseCapture&&oBox.releaseCapture();
-                        move(oBox);
-                    };
-                    oBox.setCapture&&oBox.setCapture();
-                    return false;
-                };
-                function move(obj){
-                    clearInterval(obj.timer);
-                    obj.timer=setInterval(function(){
-                        iSpeedY+=3;
-                        var l=obj.offsetLeft+iSpeedX;
-                        var t=obj.offsetTop+iSpeedY;
-                        if(l<0){
-                            l=0;
-                            iSpeedX*=-0.8;
-                            iSpeedY*=0.8;
-                        }
-                        if(l>=document.documentElement.clientWidth-obj.offsetWidth){
-                            l=document.documentElement.clientWidth-obj.offsetWidth;
-                            iSpeedX*=-0.8;
-                            iSpeedY*=0.8;
-                        }
-                        if(t<0){
-                            t=0;
-                            iSpeedX*=0.8;
-                            iSpeedY*=-0.8;
-                        }
-                        if(t>=document.documentElement.clientHeight-obj.offsetHeight){
-                            t=document.documentElement.clientHeight-obj.offsetHeight;
-                            iSpeedX*=0.8;
-                            iSpeedY*=-0.8;
-                        }
-                        //document.title=iSpeedX;
-
-                        if(Math.abs(iSpeedX)<1){
-                            iSpeedX=0;
-                        }
-                        if(Math.abs(iSpeedY)<1){
-                            iSpeedY=0;
-                        }
-                        if(iSpeedX==0&&iSpeedY==0&&t==document.documentElement.clientHeight-obj.offsetHeight){
-                            clearInterval(obj.timer);
-                        }
-                        obj.style.left=l+'px';
-                        obj.style.top=t+'px';
-                    },30);
-                }
-            })();
-
-        };
-    </script>
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="css/base.css" />
+	<link rel="stylesheet" type="text/css" href="css/index.css" />
+	<link rel="stylesheet" href="css/animate.css" />
+	<script type="text/javascript" src="js/move.js"></script>
+	<script type="text/javascript" src="js/doMove.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
 </head>
 <body>
-<div class="index">
-    <!-- header-->
-    <div class="header" id="header"> </div>
-    <!-- banner-->
-    <div id="box">
-        <div class="banner clearfix" id="ban">
-            <div class="try fl">
-                <a href="javascript:;">JUST DO IT.</a>
-            </div>
-            <div class="b_er fr clearfix" id="ber">
-                <a href="javascript:;">首页</a>
-                <a href="javascript:;">html</a>
-                <a href="javascript:;">js</a>
-                <a href="javascript:;">h5</a>
-                <a href="javascript:;" class="last">我的关注</a>
-            </div>
-        </div>
-        <div class="relief" id="rel"></div>
-    </div>
-    <!-- html-->
-	<div class="ht">
-        <ul class="shows" id="shows">
-            <li class="l_1"><a href="360/360.html"><img src="image/360.jpg" alt=""/></a> </li>
-            <li class="l_2"><a href="Echo/Echo.html"><img src="image/Echo.jpg" alt=""/></a></li>
-            <li class="cur"><a href="mls/mls.html"><img src="image/mls.jpg" alt=""/></a></li>
-            <li class="r_2"><a href="iqy/iqy.html"><img src="image/iqy.jpg" alt=""/></a></li>
-            <li class="r_1"><a href="jd/jd.html"><img src="image/jd.jpg" alt=""/></a></li>
-        </ul>
-        <a href="javascript:;" class="shows_l" id="shows_l"><</a>
-        <a href="javascript:;" class="shows_r" id="shows_r">></a>
-    </div>
-    <!--js-->
-    <div class="Cube_all" >
-        <ul class="Cube" id="cude">
-            <li class="roll"></li>
-            <li class="front">正面</li>
-            <li class="back">反面</li>
-            <li class="up">下面</li>
-            <li class="down">上面</li>
-            <li class="left">左面</li>
-            <li class="right">右面</li>
-        </ul>
-        <div id="go"></div>
-    </div>
-    <div id="back">返回顶部</div>
-</div>
+	<div class="start" id="start">
+		<img src="img/1.jpg" alt="" style="z-index:3" />
+		<img src="img/2.jpg" alt="" style="z-index:2" />
+		<img src="img/3.jpg" alt="" style="z-index:1" />
+		<span class="head_pic animated bounce"></span>
+		<h2 class="name">赵田</h2>
+		<p class="jb">web前端开发</p>
+		<div id="time_r">
+			<div id="time_btn"></div>
+			 <div id="tab" class="calendar">
+			    <ul>
+			        <li><h2>1</h2><p>JAN</p></li>
+			        <li><h2>2</h2><p>FER</p></li>
+			        <li><h2>3</h2><p>MAR</p></li>
+			        <li><h2>4</h2><p>APR</p></li>
+			        <li><h2>5</h2><p>MAY</p></li>
+			        <li><h2>6</h2><p>JUN</p></li>
+			        <li><h2>7</h2><p>JUL</p></li>
+			        <li><h2>8</h2><p>AUG</p></li>
+			        <li><h2>9</h2><p>SEP</p></li>
+			        <li><h2>10</h2><p>OCT</p></li>
+			        <li><h2>11</h2><p>NOV</p></li>
+			        <li><h2>12</h2><p>DEC</p></li>
+			    </ul>
+           </div>
+           <div class="clock">
+				<div class="hou"></div>
+				<div class="min"></div>
+				<div class="sec"></div>
+				<div class="cap"></div>
+				<p id="cl_p"></p>
+	      </div>
+		</div>
+	</div>
+	<div id="nav" style="z-index:998;">
+		<div class="nav_a clearfix">
+			<a href="javascript:;">Return</a>
+			<a href="javascript:;">HTML</a>
+			<a href="javascript:;">Js</a>
+			<a href="javascript:;">HTML5</a>
+			<a href="javascript:;">其他案例</a>
+			<a href="javascript:;">个人资料</a>
+		</div>
+	</div>
+	<div id="nav_item"></div>
+	<div class="content">
+		<div class="works">
+			<a href="demo/game/game.html" target="_blank" class="l2">
+				<img src="img/header_main.jpg" />
+				<span></span>
+				<em>游戏页面的简单制作</em>
+			</a>
+			<a href="demo/aiqiyi/aiqiyi.html" target="blank" class="l1">
+				<img src="img/aiqiyi.jpg" />
+				<span></span>
+				<em>爱奇艺静态页面的制作</em>
+			</a>
+			<a href="demo/jd/jd.html" target="blank" class="cur">
+				<img src="img/jd.jpg" />
+				<span></span>
+				<em>京东页面的简单制作</em>
+			</a>
+			<a href="demo/360/360.html"  target="blank" class="r1">
+				<img src="img/360.jpg" />
+				<span></span>
+				<em>360静态页面的制作</em>
+			</a>
+			<a href="demo/oppo/meili.html" target="blank" class="r2">
+				<img src="img/meilishuo.jpg" />
+				<span></span>
+				<em>美丽说页面的简单制作</em>
+			</a>
+			<a href="demo/oppo/oppo.html" target="blank">
+				<img src="img/oppo.jpg" />
+				<span></span>
+				<em>OPPO页面的制作</em>
+			</a>
+		</div>
+			<ul class="clearfix">
+				<li class="prev_btn fl">prev</li>
+			    <li class="next_btn fl">next</li>
+			</ul>
+	</div>
+	<div class="content2">
+		<div class="con_head clearfix">
+			<span class="con_sp1 fl"></span>
+			<span class="con_sp2 fl">JavaScript</span>
+			<span class="con_sp3 fl"></span>
+		</div>
+		<div class="through">
+			<a href="JavaScript/worksShow.html" class="th1" target="blank"><span>
+				<em>作品展览</em>
+			</span></a>
+			<a href="JavaScript/seamless.html" class="th2" target="blank"><span>
+				<em>无缝滚动</em>
+			</span></a>
+			<a href="JavaScript/shoufenq/accordion.html" class="th3" target="blank"><span>
+				<em>绚丽手风琴</em>
+			</span></a>
+			<a href="JavaScript/count.html" class="th4" target="blank"><span>
+				<em>漂亮的计算器</em>
+			</span></a>
+			<a href="JavaScript/distribute.html" class="th5" target="blank"><span>
+				<em>分布运动效果</em>
+			</span></a>
+			<a href="JavaScript/3D/demo.html" class="th6" target="blank"><span>
+				<em>3D图片旋转</em>
+			</span></a>
+			<a href="JavaScript/yun.html" class="th7" target="blank"><span>
+				<em>图片上下绚丽运动</em>
+			</span></a>
+			<a href="JavaScript/block.html" class="th8" target="blank"><span>
+				<em>分块运动</em>
+			</span></a>
+		</div>
+	</div>
+	<div class="content3">
+		<div class="page_box">
+			<div class="page_son1 animated">
+				<img src="img/11.jpg" alt=""  title="点我看看" />
+				<p>完美的星空</p>
+			</div>
+			<div class="page_son2 animated">
+				<img src="img/12.jpg" alt="" title="点我看看" />
+				<p>海边的黄昏</p>
+			</div>
+			<div class="page_son3 animated">
+				<img src="img/13.jpg" alt="" title="点我看看" />
+				<p>城市的落日余晖</p>
+			</div>
+			<div class="page_son4 animated">
+				<img src="img/14.jpg" alt="" title="点我看看" />
+				<p>大海的夜空</p>
+			</div>
+				<a href="javascript:;" class="life">
+					<img src="img/life.jpg" alt="" />
+				</a>
+				<a href="javascript:;" class="animal">
+					<img src="img2/3.jpg" alt="" />
+				</a>
+			</div>
+			<div class="page_boxf">
+				<div class="box">
+					
+				</div>
+				<a href="javascript:;"><-</a>
+		   </div>
+		   <div class="page_boxb">
+				<ul>
+					<li><img src="img2/1.jpg" /></li>
+					<li><img src="img2/2.jpg" /></li>
+					<li><img src="img2/3.jpg" /></li>
+					<li><img src="img2/4.jpg" /></li>
+					<li><img src="img2/5.jpg" /></li>
+					<li><img src="img2/6.jpg" /></li>
+					<li><img src="img2/7.jpg" /></li>
+					<li><img src="img2/8.jpg" /></li>
+					<li><img src="img2/9.jpg" /></li>
+					<li><img src="img2/10.jpg" /></li>
+					<li><img src="img2/11.jpg" /></li>
+	          </ul>
+	          <a href="javascipt:;">返回</a>
+		   </div>
+		</div>
+		
+	<div class="content4">
+		<div class="spr">
+			<a href="javascript:;" class="play">H5/捕鱼达人</a>
+			<a href="fish/fish.html" class="fish" title="点击查看" target="blank"><img src="img/58.png" alt="" class="fish_pic" /></a>
+			<div class="fish_font">
+				<p>捕鱼达人采用H5游戏开发机制,运用canvas绘图原理,对图片的引入,和canvas运动形式的分析结合Javascript脚本语言,面向对象方法和属性的继承思想来对游戏开发实现化繁为简的编程,对开发其他H5游戏提供一种思路。可以让你领略游戏开发的乐趣。</p>
+			</div>
+			<a href="javascript:;" class="move">移动端开发</a>
+			<div class="phone">
+				<ul class="phone_ul clearfix" id="phone_ul">
+					<li><img src="img/m6.png" /></li>
+					<li><img src="img/m5.png" /></li>
+					<li><img src="img/m1.png" /></li>
+					<li><img src="img/m4.png" /></li>
+					<li><img src="img/m3.png" /></li>
+					<li><img src="img/m2.png" /></li>
+					<li><img src="img/m6.png" /></li>
+					<li><img src="img/m5.png" /></li>
+				</ul>
+				<i class="i1" id="i1"><</i>
+				<i class="i2" id="i2">></i>
+			</div>
+			<div class="phone_font">
+				<p>
+					手机端页面制作预览<br/>
+					移动端页面制作采用基本的html css页面布局方式,结合w3c标准规范,和对标签语义化的理解,来整体布局,运用高性能的H5新标签,rem布局方式,可以在多数移动端页面查看,提升用户体验,结合JavaScript和swiper、iscroll、zepto可以实现更加快速的效果添加 页面的搭建带来全新的视觉感知。
+				</p>
+			</div>
+		</div>
+	</div>
+	<div class="content5">
+		<div class="skill">
+			<h2>我的技能</h2>
+			<ul class="skill_ul">
+				<li>
+					<em>html/css</em>
+					<span></span>
+				</li>
+				<li>
+					<em>JavaScipt</em>
+					<span></span>
+				</li>
+				<li>
+					<em>html5/css3</em>
+					<span></span>
+				</li>
+				<li>
+					<em>php node.js</em>
+					<span></span>
+				</li>
+			</ul>
+		</div>
+		<div class="bj"></div>
+		<div class="txtCon">
+			<p>熟悉HTML、DIV、CSS，熟悉页面架构和布局，对Web标准和标签语义化有深入理解。</p>
+			<p>熟练运用Photoshop，Dreamweaver，Firebug等常用网页设计制作软件。</p>
+			<p>能够解决不同主流浏览器的兼容性问题。</p>
+			<p>了解网页中SEO的一些基本理念。</p>
+			<p>了解css预处理器Less Sass</p>
+		</div>
+
+		<div class="txtCon2"> 
+			<p>熟练掌握JavaScript语言特性,能够熟练使用Js进行编程,熟悉面向对象思想,对mvc表现、数据、控制思想熟练掌握,了解JavaScript设计模式。</p>
+			<p>
+				熟练使用jQuery库,并能够对其特性和应用有深入的了解。
+			</p>
+			<p>
+				熟练应用Ajax、Jsonp完成服务器数据交互,和DOM事件处理机制。
+			</p>
+			<p>熟悉AngularJS,了解vue、react等框架。</p>
+			<p>熟悉正则校验。</p>
+			<p>熟练使用cookie,还有sea.js/require.js模块化工具</p>
+		</div> 
+			 <div class="txtCon3">
+				   	<p>熟练掌握html5/css3的新特性能够完成网页制作特效。</p>
+				   	<p>能够完成H5中音频和视屏的嵌入方法。</p>
+				   	<p>熟悉canvas svg等</p>
+				   	<p>能够完成移动端网页制作,和swiper、iscroll插件的运用</p>
+			</div>
+			<div class="txtCon4">
+				 <p>了解php,mysql数据库数据的存储,node.js服务器环境的的搭建等应用。</p>
+			</div>
+			<div class="info_box" id="info_box">
+				<div id="info_btn">
+					<img src="img/info.png" />
+				</div>
+				<h2>个人信息/Personal Information</h2>
+			<div class="foot_info clearfix">
+				S<div class="info_left fl">
+					<p>姓名：赵田</p>
+					<p>工作经历：2013.6-2016.11</p>
+					<p>地址:石家庄</p>
+				</div>
+				<span class="line fl"></span>
+				<div class="info_cen fl">
+					<p>掌握技能：html css Js等</p>
+					<p>联系方式:</p>
+					<p>电话：15075975760</p>
+					<p>邮箱：itallan@sina.com</p>
+				</div>
+				<span class="line1 fl"></span>
+				<div class="info_right fl">
+					<p>如果您对我感兴趣,联系我</p>
+					<img src="img/qr_code.jpg"  class="in_pic" />
+				</div>
+			</div>
+		</div>	
+	</div> 
+	<div id="shadow">
+		<div class="sd_box">
+		</div>
+		<p class="wel">Welcome to my personal station</p>
+		<span id="in_btn">Get into</span>
+		<div class="load">
+			<span class="load_sp"></span>
+			<span class="load_sp2"></span>
+			<span class="load_sp3"></span>
+			<span class="load_sp4"></span>
+		</div>
+	</div>
 </body>
 </html>

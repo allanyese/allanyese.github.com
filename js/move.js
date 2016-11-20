@@ -1,42 +1,58 @@
-//纰版挒杩愬姩
-function move(obj){
-	clearInterval(obj.timer);
-	obj.timer=setInterval(function(){
-		iSpeedY+=3;
-		var l=obj.offsetLeft+iSpeedX;
-		var t=obj.offsetTop+iSpeedY;
-		if(l<0){
-			l=0;
-			iSpeedX*=-0.8;
-			iSpeedY*=0.8;
-		}
-		if(l>=document.documentElement.clientWidth-obj.offsetWidth){
-			l=document.documentElement.clientWidth-obj.offsetWidth;
-			iSpeedX*=-0.8;
-			iSpeedY*=0.8;	
-		}
-		if(t<0){
-			t=0;
-			iSpeedX*=0.8;
-			iSpeedY*=-0.8;
-		}
-		if(t>=document.documentElement.clientHeight-obj.offsetHeight){
-			t=document.documentElement.clientHeight-obj.offsetHeight;
-			iSpeedX*=0.8;
-			iSpeedY*=-0.8;	
-		}
-		//document.title=iSpeedX;
-		
-		if(Math.abs(iSpeedX)<1){
-			iSpeedX=0;	
-		}
-		if(Math.abs(iSpeedY)<1){
-			iSpeedY=0;	
-		}
-		if(iSpeedX==0&&iSpeedY==0&&t==document.documentElement.clientHeight-obj.offsetHeight){
-			clearInterval(obj.timer);	
-		}
-		obj.style.left=l+'px';
-		obj.style.top=t+'px';
-	},30);		
+/**
+ * Created by Administrator on 2016/9/7.
+ */
+function getStyle(obj,name){
+    return obj.currentStyle?obj.currentStyle[name]:getComputedStyle(obj,false)[name];
+}
+function move(obj,json,options){
+    //options {easing:1 duration:2 complete:fn}
+    options=options || {};
+    options.duration = options.duration || '800';
+    options.easing =options.easing || 'ease-out';
+    clearInterval(obj.timer);
+    //{width:300,height:300}
+
+    //{width:0,height:0}
+    var start={};
+    //dis {width:300,height:300 }
+    var dis={};
+    for(var name in json){
+        start[name] = parseFloat(getStyle(obj,name));
+        dis[name] = json[name]-start[name];
+    }
+    //总次数
+    var count = Math.floor(options.duration/30);
+    //当前走了几次
+    var n =0;
+    obj.timer=setInterval(function(){
+        n++;
+        for(var name in json){
+            switch (options.easing){
+                case 'linear':
+                    var a = n/count;
+                    var cur = dis[name]*a;
+                    break;
+                case 'ease-in':
+                    var a = n/count;
+                    var cur = dis[name]*a*a*a;
+                    break;
+                case 'ease-out':
+                    var a = 1-n/count;
+                    var cur = dis[name]*(1-a*a*a);
+                    break;
+            }
+
+            if(name=='opacity'){
+                obj.style.opacity=start[name]+cur;
+                obj.style.filter='alpha(opacity:'+(start[name]+cur)*100+')';
+            }else{
+                obj.style[name]=start[name]+cur+'px';
+            }
+        }
+        if(n==count){
+//                        alert('走完了');
+            clearInterval(obj.timer);
+            options.complete && options.complete();
+        }
+    },30);
 }

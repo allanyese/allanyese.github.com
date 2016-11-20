@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+		body{ background:#60C;}
+        div{
+            width: 800px;
+            margin:10px auto;
+            height: 358px;
+            border: 1px solid #000;
+            position: relative;
+            overflow: hidden;
+        }
+        ul{
+            position: absolute;
+            left: 0;
+            top: 25%;
+        }
+        li{
+            list-style: none;
+            width: 260px;
+            height: 179px;
+            float: left;
+            position: relative;
+        }
+        li img{
+            width: 260px;
+            height: 179px;
+        }
+        span{
+            position: absolute;
+            left: 50%;
+            top:50%;
+            font-size: 60px;
+            font-weight: bold;
+            margin-top: -30px;
+            margin-left: -20px;
+        }
+		p{ width:600px;  margin:10px auto; line-height:30px; font-size:16px;
+		}
+    </style>
+    <script>
+        window.onload = function () {
+            var oUl = document.getElementsByTagName('ul')[0];
+            var aLi = document.getElementsByTagName('li');
+            var oBox = document.getElementById('box');
+            var aImg = document.getElementsByTagName('img');
+            oUl.style.width=aLi[0].offsetWidth*aLi.length+'px';
+            var divcenterline = oBox.offsetWidth/2;
+            //以下代码根本程序无关
+
+            //centerline - (n-0.5)*li.offsetWidth;
+            oUl.style.left=divcenterline-(1- 0.5)*aLi[0].offsetWidth+'px';
+            oUl.onmousedown=function(ev){
+                var oEvent =ev || event;
+                var disX = oEvent.clientX-oUl.offsetLeft;
+                document.onmousemove=function(ev){
+                    var oEvent =ev || event;
+                    var l = oEvent.clientX-disX;
+                    if(l>divcenterline-(1-0.5)*aLi[0].offsetWidth){
+                        l=divcenterline-(1- 0.5)*aLi[0].offsetWidth
+                    }
+                    if(l<divcenterline-(8- 0.5)*aLi[0].offsetWidth){
+                        l=divcenterline-(8- 0.5)*aLi[0].offsetWidth;
+                    }
+                    oUl.style.left=l+'px';
+                    //C = oBox.offsetWidth/2-( oUl.offsetLeft+oLi.offsetLeft+oLi.offsetWidth/2 )
+                    setSize();
+                };
+                document.onmouseup=function(){
+                    document.onmousemove=null;
+                    document.onmouseup=null;
+                    oUl.releaseCapture&&oUl.releaseCapture();
+                };
+                oUl.setCapture&&oUl.setCapture();
+                return false;
+            };
+            setSize();
+            function setSize(){
+                for(var i=0;i<aLi.length;i++){
+                    var c = divcenterline-(oUl.offsetLeft+aLi[i].offsetLeft+aLi[i].offsetWidth/2);
+                    c = Math.abs(c);
+                    var scale = 1 - c/500;
+                    scale<0.5&&(scale=0.5);
+                    aImg[i].style.width=scale*520+'px';
+                    aImg[i].style.height=scale*358+'px';
+                    aImg[i].style.marginLeft=-(scale*520-260)/2+'px';
+                    aImg[i].style.marginTop=-(scale*358-179)/2+'px';
+                    aLi[i].style.zIndex=scale*1000;
+                }
+            }
+        };
+    </script>
+</head>
+<body>
+    <div id="box">
+        <ul>
+            <li><img src="../img/49.jpg" alt=""/></li>
+            <li><img src="../img/139.jpg" alt=""/></li>
+            <li><img src="../img/42256212_17.jpg" alt=""/></li>
+            <li><img src="../img/1403577602864.jpg" alt=""/></li>
+            <li><img src="../img/1451367141620.jpg" alt=""/></li>
+            <li><img src="../img/31.jpg" alt=""/></li>
+            <li><img src="../img/58.jpg" alt=""/></li>
+            <li><img src="../img/149.jpg" alt=""/></li>
+        </ul>
+    </div>
+    <p>城市繁华，理想在世人仰望的舞台上行走，在繁华城市的空气中穿梭。世间之事就是如此的奇妙，在你我毫无准备时，青春一声不吭地撞开了我们的心扉，让我们不由地迸发出激情，莫名其妙地涌起冲动。</p>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

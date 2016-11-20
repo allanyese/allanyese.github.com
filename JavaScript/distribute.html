@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{ background:#ccc}
+        ul{
+            width: 720px;
+            height: 720px;
+            margin:10px auto;
+        }
+        li{
+            width: 200px;
+            height: 200px;
+            margin: 10px;
+            float: left;
+            background: #ccc;
+            list-style: none;
+        }
+        li img{ width:100%; height: 100%;}
+        input{ width:100px; height: 50px; position: absolute;left:600px; top:800px;}
+    </style>
+    <script src="../js/move.js"></script>
+    <script>
+        window.onload = function () {
+            var aLi = document.getElementsByTagName('li');
+            var oBtn = document.getElementsByTagName('input')[0];
+            var aPos = [];
+            for(var i=0 ;i<aLi.length;i++){
+                aPos.push({
+                    left:aLi[i].offsetLeft,
+                    top:aLi[i].offsetTop
+                });
+            }
+            for(var i=0;i<aPos.length;i++){
+                aLi[i].style.position='absolute';
+                aLi[i].style.left=aPos[i].left+'px';
+                aLi[i].style.top=aPos[i].top+'px';
+                aLi[i].style.margin=0;
+            }
+            var timer=null;
+            var lock =false;
+            oBtn.onclick=function(){
+                if(lock)return;
+                lock=true;
+                var n =0;
+                timer=setInterval(function(){
+                    (function(index){
+                        move(aLi[n],{width:0,height:0,left:650,top:825},{
+                            complete:function(){
+                                if(index==aLi.length-1){
+                                    var n = aLi.length-1;
+                                    timer=setInterval(function(){
+                                        move(aLi[n],{width:200,height:200,left:aPos[n].left,top:aPos[n].top});
+                                        n--;
+                                        if(n==-1){
+                                            clearInterval(timer);
+                                            lock=false;
+                                        }
+                                    },100);
+                                }
+                            }
+                        });
+                    })(n);
+                    n++;
+                    if(n==aLi.length){
+                        clearInterval(timer);
+                    }
+                },100)
+            };
+
+        };
+    </script>
+</head>
+<body>
+<input type="button" value="下一页"/>
+<ul>
+    <li><img src="../img/100.jpg" /></li>
+    <li><img src="../img/101.jpg" /></li>
+    <li><img src="../img/102.jpg" /></li>
+    <li><img src="../img/103.jpg" /></li>
+    <li><img src="../img/104.jpg" /></li>
+    <li><img src="../img/105.jpg" /></li>
+    <li><img src="../img/106.jpg" /></li>
+    <li><img src="../img/107.jpg" /></li>
+    <li><img src="../img/108.jpg" /></li>
+</ul>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>三维图片轮换</title>
+<link href="zns_style.css" rel="stylesheet" type="text/css" />
+<script src="doMove.js"></script>
+<script>
+window.onload = function(){
+	var oRight = document.getElementById('btn1');
+	var oLeft = document.getElementById('btn2');
+	var oZns = document.getElementById('znsRotatePic');
+	var aLi = oZns.children;
+	var aImg = oZns.getElementsByTagName('img');
+	var aPos = [];
+	
+	aLi[0].onclick = function(){
+		toRight();
+		return false;
+	};
+	aLi[2].onclick = function(){
+		toLeft();
+		return false;
+	};
+	for(var i=0;i<aLi.length;i++){
+		aPos.push({
+			"left":aLi[i].offsetLeft,
+			"top":aLi[i].offsetTop,
+			"opacity":getStyle(aImg[i],'opacity'),
+			"imgW":aImg[i].offsetWidth,
+			"imgT":aImg[i].offsetTop,
+			"fnClick":aLi[i].onclick
+		});
+	}
+	oRight.onclick = toRight;
+	function toRight(){
+		aPos.push(aPos.shift());
+		change();
+	};
+	oLeft.onclick = toLeft; 
+	function toLeft(){
+		aPos.unshift(aPos.pop());
+		change();
+	};
+	function change(){
+		for(var i=0;i<aLi.length;i++){
+			doMove(aLi[i],{left:aPos[i].left,top:aPos[i].top});
+			doMove(aImg[i],{top:aPos[i].imgT,width:aPos[i].imgW,opacity:aPos[i].opacity});
+			aLi[i].onclick = aPos[i].fnClick;
+		}
+	}
+};
+</script>
+</head>
+
+<body>
+<input type="button" value="往右面走" id="btn1" />
+<input type="button" value="往左面走" id="btn2" />
+<ul id="znsRotatePic">
+	<li class="pic1">
+		<a href="javascript:;"><img src="images/pic1.gif" alt="pic1" class="unactive" width="187" /></a>
+		<span></span>
+	</li>
+	<li class="pic2">
+		<a href="javascript:;"><img src="images/pic2.gif" alt="pic2"  width="208" /></a>
+		<span></span>
+	</li>
+	<li class="pic3">
+		<a href="javascript:;"><img src="images/pic3.gif" alt="pic3" class="unactive" width="187" /></a>
+		<span></span>
+	</li>
+</ul>
+
+</body>
+</html>
